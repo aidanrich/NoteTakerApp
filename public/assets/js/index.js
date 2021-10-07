@@ -64,7 +64,6 @@ const renderActiveNote = () => {
     noteTitle.value = '';
     noteText.value = '';
   }
-  window.location.reload(true)
 };
 
 const handleNoteSave = () => {

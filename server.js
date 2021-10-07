@@ -24,6 +24,12 @@ app.get('/notes', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/notes.html'))
 });
 
+app.get('/api/notes', (req, res) => {
+  fs.readFile("./db/db.json", function (err, data) {
+    res.send(data);
+  })
+})
+
 // GET * should return the index.html file.
 
 // The following API routes should be created:
@@ -66,7 +72,6 @@ app.post('/api/notes', (req, res) => {
     })
     console.log(newNote);
     res.status(201).json(newNote);
-    // res.send(newNote)
 
   } else {
     res.status(500).json('Error in posting review');
