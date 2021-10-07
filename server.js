@@ -1,5 +1,6 @@
 const express = require('express');
 const PORT = 3001;
+const util = require("util")
 const fs = require('fs');
 var uuidv1 = require('uuidv1')
 
@@ -17,9 +18,6 @@ app.use(express.json());
 // The following HTML routes should be created:
 
 // GET /notes should return the notes.html file.
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '/public/index.html'))
-});
 
 
 app.get('/notes', (req, res) => {
@@ -33,6 +31,7 @@ app.get('/notes', (req, res) => {
 // GET /api/notes should read the db.json file and return all saved notes as JSON.
 app.get('/api/notes', (req, res) => {
   res.status(200).json(db);
+
 });
 
 // POST /api/notes should receive a new note to save on the request body, add it to the db.json file, and then return the new note to the client. You'll need to find a way to give each note a unique id when it's saved (look into npm packages that could do this for you).
@@ -40,7 +39,7 @@ app.get('/api/notes', (req, res) => {
 app.post('/api/notes', (req, res) => {
   const { title, text } = req.body;
 
-  if(title && text) {
+  if (title && text) {
     const newNote = {
       title,
       text,
@@ -48,28 +47,32 @@ app.post('/api/notes', (req, res) => {
     }
 
     // readfile
-    fs.readFile('./db/db.json', 'utf8' , (err, data) => {
+    fs.readFile('./db/db.json', 'utf8', (err, data) => {
       if (err) {
-        console.error(err)}
-        else {
-          const someNotes = JSON.parse(data);
-          someNotes.push(newNote);
-          fs.writeFile('db/db.json', JSON.stringify(someNotes), (err) =>
-          err ? console.error(err) : console.log('Note added!'))
-        }
-      })
-
-
-    const response = {
-      status: 'success',
-      body: newNote,
-    }
-    console.log(response);
+        console.error(err)
+      }
+      else {
+        const someNotes = JSON.parse(data);
+        someNotes.push(newNote);
+        let writeFileAsync = util.promisify(fs.writeFile)
+        writeFileAsync('db/db.json', JSON.stringify(someNotes), (err) => {
+          err ? console.error(err) : console.log('Note added!')
+          const response = {
+            status: 'success',
+            body: newNote,
+          }
+        })
+      }
+    })
+    console.log(newNote);
     res.status(201).json(newNote);
+    // res.send(newNote)
+
   } else {
     res.status(500).json('Error in posting review');
   }
 })
+
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/index.html'))
 });
