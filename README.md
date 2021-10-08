@@ -1,7 +1,7 @@
 # NoteTakerApp
 ## Description
-- We were tasked with creating a note taker app that would live on heroku and take advantage of express.js to hold persistent data.
-- This project helped us learn about express.js, and routes.
+- We were tasked with creating a note taker app that would go live on heroku and take advantage of express.js to hold persistent data.
+- This project helped us learn about express.js, json parsing and routes.
 ## Table of Contents
 - [Usage](#usage)
 - [Credits](#credits)
@@ -10,13 +10,13 @@
 - On the site you can click the start button, then you will be able to write yourself some notes. You can also click on an existing note to see it.
 
 ![card example](images/NoteTaker.JPG)
-- Find a Heroku site here https://agile-bayou-16129.herokuapp.com/
+- Find the Heroku live site here https://agile-bayou-16129.herokuapp.com/
 - github repo: https://github.com/aidanrich/NoteTakerApp
    
 ## Credits
-- We used the require package, https://www.npmjs.com/package/inquirer
-- we also used jest, https://jestjs.io/
-- Major help from my tutor Dru Sanchez.
+- We used the express.js package.
+- we also used starter code provided by the class repo.
+- Lots of help from classmates and our substitute teacher Ross Ritchey.
 
 ## Badges
 ![alt text](https://img.shields.io/badge/Script-JS-brightgreen)
