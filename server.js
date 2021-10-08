@@ -30,6 +30,15 @@ app.get('/api/notes', (req, res) => {
   })
 })
 
+// const readFromFile = util.promisify(fs.readFile);
+
+// app.get('/', (req, res) => {
+//   console.info(`${req.method} request received for feedback`);
+
+//   readFromFile('./db/db.json').then((db) => res.json(JSON.parse(db)));
+// });
+
+
 // GET * should return the index.html file.
 
 // The following API routes should be created:
