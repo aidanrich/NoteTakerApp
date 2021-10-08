@@ -12,24 +12,26 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+const readFromFile = util.promisify(fs.readFile);
 // We need to make notes
 // the notes should automatically populate the page
 
 // The following HTML routes should be created:
 
 // GET /notes should return the notes.html file.
-
+app.get('/api/notes', (req, res) => {
+  readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)));
+});
 
 app.get('/notes', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/notes.html'))
 });
 
-app.get('/api/notes', (req, res) => {
+app.get('/api/notes', (req, res) => 
   fs.readFile("./db/db.json", function (err, data) {
     res.send(data);
   })
-})
-
+)
 
 
 // GET * should return the index.html file.
@@ -51,7 +53,7 @@ app.post('/api/notes', (req, res) => {
     const newNote = {
       title,
       text,
-      note_id: uuidv1(),
+      id: uuidv1(),
     }
 
     // readfile
@@ -80,9 +82,9 @@ app.post('/api/notes', (req, res) => {
   }
 })
 
-app.get('*', (req, res) => {
+app.get('*', (req, res) => 
   res.sendFile(path.join(__dirname, '/public/index.html'))
-});
+);
 
 
 
