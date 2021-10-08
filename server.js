@@ -1,5 +1,5 @@
 const express = require('express');
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 const util = require("util")
 const fs = require('fs');
 var uuidv1 = require('uuidv1')
